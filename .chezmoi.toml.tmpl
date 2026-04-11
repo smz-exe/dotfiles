@@ -1,0 +1,12 @@
+{{/*
+  Bootstrap template for per-machine chezmoi config.
+  Executed on `chezmoi init` (first run only, thanks to promptStringOnce).
+  The answers are written to ~/.config/chezmoi/chezmoi.toml on each machine
+  and NEVER committed to the dotfiles repo.
+*/}}
+{{- $email := promptStringOnce . "email" "Git email" -}}
+{{- $name  := promptStringOnce . "name"  "Git name" "smz-exe" -}}
+
+[data]
+    email = {{ $email | quote }}
+    name  = {{ $name  | quote }}

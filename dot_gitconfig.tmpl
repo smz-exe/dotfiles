@@ -1,0 +1,17 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+[alias]
+	st = status -s
+	l = log --oneline
+[init]
+	defaultBranch = main
+[http]
+	postBuffer = 524288000
+[ghq]
+	root = ~/repos
