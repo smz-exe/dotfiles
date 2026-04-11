@@ -1,0 +1,7 @@
+#!usr/bin/env perl
+
+$latex = 'platex -synctex=1 %O %S';
+$bibtex = 'pbibtex %O %B';
+$makeindex = 'memindex %O -o %D %S';
+$pdf_mode = 3;
+$dvipdf = 'dvipdfmx -V 7 %O -o %D %S';

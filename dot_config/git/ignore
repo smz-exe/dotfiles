@@ -1,0 +1,7 @@
+# Global gitignore (XDG location — git reads this by default)
+
+.env
+.DS_Store
+
+**/.claude/settings.local.json
+**/CLAUDE.local.md
