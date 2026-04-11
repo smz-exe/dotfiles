@@ -1,0 +1,131 @@
+# ~/.zshrc
+
+# --- Homebrew---
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Deduplicate PATH entries
+typeset -U path PATH
+
+# MySQL / PHP
+export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
+
+# Google Cloud SDK (path + completions)
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# --- mise (Node/runtime version manager) ---
+eval "$(/opt/homebrew/bin/mise activate zsh)"
+
+# Docker completion
+fpath=("$HOME/.docker/completions" $fpath)
+
+# zsh setting
+autoload -U colors && colors
+
+# zsh-completions (must be set up before compinit)
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload -Uz compinit
+# Use cached compinit if less than 24h old
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+# alias setting
+alias cdk='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/Keio/2026'
+alias cdicloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
+alias cdgdrive='cd ~/gdrive-keio/My\ Drive/'
+
+alias sail='sh vendor/bin/sail'
+
+# Git aliases
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add --all'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gca='git commit --amend'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gb='git branch'
+alias gbd='git branch -d'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gpu='git push -u origin HEAD'
+alias gl='git pull'
+alias gf='git fetch'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias glog='git log --oneline --graph --decorate -20'
+alias gloga='git log --oneline --graph --decorate --all -20'
+alias gst='git stash'
+alias gstp='git stash pop'
+alias grb='git rebase'
+alias grbi='git rebase -i'
+alias gm='git merge'
+alias grs='git reset'
+alias grsh='git reset --hard'
+alias gsw='git switch'
+alias gswc='git switch -c'
+
+# eza (modern ls replacement)
+alias ls='eza --group-directories-first'
+alias ll='eza -lh --git --group-directories-first'
+alias la='eza -lhA --git --group-directories-first'
+alias lla='eza -lha --git --group-directories-first'
+alias lt='eza -lh --git --sort=modified --group-directories-first'
+alias ltr='eza -lh --git --sort=modified --reverse --group-directories-first'
+alias lS='eza -lh --git --sort=size --reverse --group-directories-first'
+alias l.='eza -d .*'
+alias tree='eza --tree --level=2 --group-directories-first'
+alias treeg='eza --tree --level=3 --git-ignore --group-directories-first'
+
+
+# AtCoder Library (ACL) path
+export CPLUS_INCLUDE_PATH="$HOME/.local/lib/ac-library:$CPLUS_INCLUDE_PATH"
+
+# opam configuration
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
+
+. "$HOME/.local/bin/env"
+export UV_MANAGED_PYTHON=true
+python()  { if [[ -n "$VIRTUAL_ENV" ]]; then command python  "$@"; else command uv run -- python  "$@"; fi; }
+python3() { if [[ -n "$VIRTUAL_ENV" ]]; then command python3 "$@"; else command uv run -- python3 "$@"; fi; }
+
+eval "$(direnv hook zsh)"
+
+source <(fzf --zsh)
+
+cd_git_repo() {
+  local selected="$(ghq list | fzf)"
+
+  if [[ -n "$selected" ]]; then
+    cd "$(ghq root)/$selected"
+  fi
+}
+
+bindkey -s '^g' 'cd_git_repo\n'
+
+# zsh-autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-syntax-highlighting
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Starship prompt
+eval "$(starship init zsh)"
+
