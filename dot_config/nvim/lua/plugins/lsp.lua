@@ -87,25 +87,7 @@ return {
               })
             end,
 
-            ["pyright"] = function()
-              -- Setup venv-lsp before pyright (required for Neovim < 0.11)
-              require("venv-lsp").setup()
-
-              require("lspconfig").pyright.setup({
-                capabilities = capabilities,
-                settings = {
-                  python = {
-                    analysis = {
-                      typeCheckingMode = "basic", -- "off", "basic", or "strict"
-                      diagnosticMode = "openFilesOnly",
-                      useLibraryCodeForTypes = true,
-                      autoImportCompletions = true,
-                      autoSearchPaths = true,
-                    },
-                  },
-                },
-              })
-            end,
+            -- pyright: configured via after/lsp/pyright.lua (Neovim 0.11+)
           }
         end)(),
       })
@@ -116,12 +98,6 @@ return {
   {
     "folke/neodev.nvim",
     opts = {},
-  },
-
-  -- Python venv detection for LSP
-  {
-    "jglasovic/venv-lsp.nvim",
-    lazy = true, -- Loaded when required by pyright handler
   },
 
   -- LSPConfig
