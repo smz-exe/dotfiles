@@ -45,7 +45,7 @@ else
 fi
 
 # alias setting
-alias cdk='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/Keio/2026'
+alias cdk='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/Keio/2026-m1'
 alias cdicloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
 alias cdgdrive='cd ~/gdrive-keio/My\ Drive/'
 
