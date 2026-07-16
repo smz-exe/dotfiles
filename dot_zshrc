@@ -177,6 +177,9 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # zsh-syntax-highlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/shimizuyuki/.lmstudio/bin"
+# End of LM Studio CLI section
+
 # Starship prompt
 eval "$(starship init zsh)"
-
