@@ -22,7 +22,18 @@ return {
     telescope.load_extension("fzf")
 
     local keymap = vim.keymap
-    keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+    local builtin = require("telescope.builtin")
+    keymap.set("n", "<leader>ff", function()
+      builtin.find_files({
+        find_command = {
+          "rg",
+          "--files",
+          "--hidden",
+          "--glob",
+          "!**/.git/*",
+        },
+      })
+    end, { desc = "Find files" })
     keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
     keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
     keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })

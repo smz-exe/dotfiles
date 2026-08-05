@@ -9,7 +9,7 @@ keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 
 -- Clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<C-[>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 
 -- ============================================================================
 -- Window Navigation
