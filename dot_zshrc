@@ -53,7 +53,12 @@ fi
 # alias setting
 alias cdk='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Documents/Keio/2026-m1'
 alias cdicloud='cd ~/Library/Mobile\ Documents/com~apple~CloudDocs'
-alias cdgdrive='cd ~/gdrive-keio/My\ Drive/'
+alias cdgd='cd ~/gdrive/My\ Drive/'          # personal
+alias cdgdk='cd ~/gdrive-keio/My\ Drive/'    # keio
+
+# named directories: ~gd / ~gdk expand anywhere in a path, not just after cd
+hash -d gd="$HOME/gdrive/My Drive"
+hash -d gdk="$HOME/gdrive-keio/My Drive"
 
 alias sail='sh vendor/bin/sail'
 
@@ -178,7 +183,7 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/shimizuyuki/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
 # Starship prompt
